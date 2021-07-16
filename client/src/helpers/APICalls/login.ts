@@ -3,7 +3,7 @@ import { FetchOptions } from '../../interface/FetchOptions';
 import serverPath from './server';
 
 const login = async (email: string, password: string): Promise<AuthApiData> => {
-  const fetchOptions: FetchOptions = {
+  const fetchOptions: any = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
