@@ -54,7 +54,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "https://hatchway-team-beagle.herokuapp.com/",
   "browserslist": {
     "production": [
       ">0.2%",
