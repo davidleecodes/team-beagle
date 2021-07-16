@@ -51,7 +51,7 @@ app.use(express.static(join(__dirname, "public")));
 app.use((req, res, next) => {
   const corsWhitelist = [
     "http://localhost:3000",
-    "https://hatchway-team-beagle.herokuapp.com",
+    "https://60f1b846284ec600074f42b1--tender-tereshkova-6d8aaa.netlify.app",
   ];
   console.log(req.headers.origin);
   console.log(corsWhitelist.indexOf(req.headers.origin) !== -1);
