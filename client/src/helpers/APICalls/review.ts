@@ -1,5 +1,6 @@
 import { FetchOptions } from '../../interface/FetchOptions';
 import { ReviewIF } from '../../interface/Review';
+import serverPath from './server';
 
 interface ResultsArray {
   reviews: ReviewIF[];
@@ -17,7 +18,7 @@ export async function addReview(
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ rating, title, body }),
   };
-  return await fetch(`/review/new-review/${sitterId}`, fetchOptions)
+  return await fetch(`${serverPath}/review/new-review/${sitterId}`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },
@@ -29,7 +30,7 @@ export async function getReview(sitterId: string): Promise<ResultsArray> {
     method: 'GET',
     credentials: 'include',
   };
-  return await fetch(`/review/${sitterId}`, fetchOptions)
+  return await fetch(`${serverPath}/review/${sitterId}`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },
@@ -41,7 +42,7 @@ export async function deleteReview(reviewId: string): Promise<{ reviews: ReviewI
     method: 'Delete',
     credentials: 'include',
   };
-  return await fetch(`/review/delete/${reviewId}`, fetchOptions)
+  return await fetch(`${serverPath}/review/delete/${reviewId}`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },

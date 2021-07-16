@@ -1,5 +1,6 @@
 import { FetchOptions } from '../../interface/FetchOptions';
 import { INotification } from '../../interface/Notification';
+import serverPath from './server';
 
 const sendNotification =
   (type: string, title: string, content: string, recipient: string) => async (): Promise<INotification> => {
@@ -9,7 +10,7 @@ const sendNotification =
       credentials: 'include',
       body: JSON.stringify({ type, title, content, recipient }),
     };
-    return await fetch(`/notifications/new`, fetchOptions)
+    return await fetch(`${serverPath}/notifications/new`, fetchOptions)
       .then((res) => res.json())
       .catch(() => ({
         error: { message: 'Unable to connect to server. Please try again' },

@@ -1,8 +1,10 @@
+import serverPath from './server';
+
 const uploadPhoto = async (name: string, file: string | Blob): Promise<any> => {
   const data = new FormData();
   data.append('file', file);
   data.append('name', name);
-  return await fetch('/profile/upload-photo', {
+  return await fetch(`${serverPath}/profile/upload-photo`, {
     method: 'POST',
     headers: {
       // 'Content-Type': 'multipart/form-data',

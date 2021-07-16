@@ -107,6 +107,7 @@ exports.getProfile = asyncHandler(async (req, res) => {
 //@route GET /profile/sitters
 //fetch list of isDogSitter profiles
 exports.findSitters = asyncHandler(async (req, res) => {
+  // console.log(req);
   try {
     const profileList = await Profile.find({ isDogSitter: true });
 
