@@ -48,33 +48,33 @@ app.use(express.static(join(__dirname, "public")));
 //   next();
 // });
 
-// app.use((req, res, next) => {
-//   const corsWhitelist = [
-//     "http://localhost:3000",
-//     "https://60f1b846284ec600074f42b1--tender-tereshkova-6d8aaa.netlify.app",
-//   ];
-//   console.log(req.headers.origin);
-//   console.log(corsWhitelist.indexOf(req.headers.origin) !== -1);
+app.use((req, res, next) => {
+  const corsWhitelist = [
+    "http://localhost:3000",
+    "https://60f1b846284ec600074f42b1--tender-tereshkova-6d8aaa.netlify.app",
+  ];
+  console.log(req.headers.origin);
+  console.log(corsWhitelist.indexOf(req.headers.origin) !== -1);
 
-//   if (corsWhitelist.indexOf(req.headers.origin) !== -1) {
-//     res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
-//     res.setHeader(
-//       "Access-Control-Allow-Headers",
-//       "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-//     );
-//     res.setHeader(
-//       "Access-Control-Allow-Methods",
-//       "GET, POST, PATCH, DELETE,OPTIONS"
-//     );
-//     res.setHeader("Access-Control-Allow-Credentials", "true");
-//   }
-//   next();
-// });
-const corsConfig = {
-  credentials: true,
-  origin: true,
-};
-app.use(cors(corsConfig));
+  if (corsWhitelist.indexOf(req.headers.origin) !== -1) {
+    res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PATCH, DELETE,OPTIONS"
+    );
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+  }
+  next();
+});
+// const corsConfig = {
+//   credentials: true,
+//   origin: true,
+// };
+// app.use(cors(corsConfig));
 
 // app.use((req, res, next) => {
 //   res.setHeader(
