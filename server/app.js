@@ -34,18 +34,38 @@ app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+//   res.setHeader(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, PATCH, DELETE,OPTIONS "
+//   );
+//   res.setHeader("Access-Control-Allow-Credentials", "true");
+//   next();
+// });
+
 app.use((req, res, next) => {
   const corsWhitelist = [
-    "http://localhost:3001",
+    "http://localhost:3000",
     "https://hatchway-team-beagle.herokuapp.com",
   ];
+  console.log(req.headers.origin);
+  console.log(corsWhitelist.indexOf(req.headers.origin) !== -1);
+
   if (corsWhitelist.indexOf(req.headers.origin) !== -1) {
     res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
     res.setHeader(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PATCH, DELETE,OPTIONS"
+    );
     res.setHeader("Access-Control-Allow-Credentials", "true");
   }
   next();
