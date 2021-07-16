@@ -78,6 +78,7 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
     const token = generateToken(user._id);
     const secondsInWeek = 604800;
 
+    console.log("tokenIN", token);
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: secondsInWeek * 1000,
