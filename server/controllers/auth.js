@@ -82,8 +82,10 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: secondsInWeek * 1000,
-      sameSite: process.env.NODE_ENV === "development" ? true : "none",
-      secure: process.env.NODE_ENV === "development" ? false : true,
+      sameSite: "none",
+      secure: true,
+      // sameSite: process.env.NODE_ENV === "development" ? true : "none",
+      // secure: process.env.NODE_ENV === "development" ? false : true,
     });
     console.log("cookie", res.cookie);
 
