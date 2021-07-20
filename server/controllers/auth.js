@@ -135,15 +135,17 @@ exports.loadUser = asyncHandler(async (req, res, next) => {
 // @desc Logout user
 // @access Public
 exports.logoutUser = asyncHandler(async (req, res, next) => {
-  // var host = req.get("host");
-  // var origin = req.get("origin");
-  // console.log("origin", origin);
-  // res.clearCookie("token");
-  const host =
-    process.env.NODE_ENV === "development" ? "localhost" : req.get("host");
-  console.log("host", host);
+  // const host =
+  //   process.env.NODE_ENV === "development" ? "localhost" : req.get("host");
+  // console.log("host", host);
 
-  res.clearCookie("token", { domain: host, path: "/" });
+  // res.clearCookie("token", { domain: host, path: "/" });
+  res.cookie("token", "", {
+    httpOnly: true,
+    maxAge: 0,
+    sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
+    secure: process.env.NODE_ENV === "development" ? false : true,
+  });
 
   res.send("You have successfully logged out");
 });
