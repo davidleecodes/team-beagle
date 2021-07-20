@@ -41,6 +41,10 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
 
   const logout = useCallback(async () => {
     // needed to remove token cookie
+    console.log('LOGOUT');
+    // document.cookie = 'token' + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    // document.cookie = 'user' + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+
     await logoutAPI()
       .then(() => {
         history.push('/login');
@@ -69,7 +73,9 @@ export const AuthProvider: FunctionComponent = ({ children }): JSX.Element => {
   }, [updateLoginContext, history]);
 
   return (
-    <AuthContext.Provider value={{ loggedInUser, userProfile, updateLoginContext, logout, setLoggedInUser, updateProfileContext }}>
+    <AuthContext.Provider
+      value={{ loggedInUser, userProfile, updateLoginContext, logout, setLoggedInUser, updateProfileContext }}
+    >
       {children}
     </AuthContext.Provider>
   );

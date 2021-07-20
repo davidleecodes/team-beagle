@@ -29,7 +29,6 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
     password,
   });
 
-  console.log(user);
   await Profile.create({
     userId: user._id,
     firstName: username,
@@ -49,7 +48,7 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: secondsInWeek * 1000,
-      sameSite: process.env.NODE_ENV === "development" ? true : "none",
+      sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
       secure: process.env.NODE_ENV === "development" ? false : true,
     });
 
@@ -80,16 +79,16 @@ exports.loginUser = asyncHandler(async (req, res, next) => {
     const token = generateToken(user._id);
     const secondsInWeek = 604800;
 
+    console.log("dev", process.env.NODE_ENV);
     console.log("tokenIN", token);
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: secondsInWeek * 1000,
       // sameSite: "none",
       // secure: true,
-      sameSite: process.env.NODE_ENV === "development" ? true : "none",
+      sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
       secure: process.env.NODE_ENV === "development" ? false : true,
     });
-    console.log("cookie", res.cookie);
 
     const profile = await Profile.findOne({ userId: user._id });
     res.status(200).json({
@@ -136,7 +135,15 @@ exports.loadUser = asyncHandler(async (req, res, next) => {
 // @desc Logout user
 // @access Public
 exports.logoutUser = asyncHandler(async (req, res, next) => {
-  res.clearCookie("token");
+  // var host = req.get("host");
+  // var origin = req.get("origin");
+  // console.log("origin", origin);
+  // res.clearCookie("token");
+  const host =
+    process.env.NODE_ENV === "development" ? "localhost" : req.get("host");
+  console.log("host", host);
+
+  res.clearCookie("token", { domain: host, path: "/" });
 
   res.send("You have successfully logged out");
 });
