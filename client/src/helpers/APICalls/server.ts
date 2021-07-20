@@ -1,6 +1,6 @@
-// let serverPath: string;
-// if (process.env.NODE_ENV === 'development') serverPath = 'http://localhost:3001';
-// else serverPath = 'https://hatchway-team-beagle.herokuapp.com';
-const serverPath = 'https://hatchway-team-beagle.herokuapp.com';
+let serverPath: string;
+if (process.env.NODE_ENV === 'development') serverPath = 'http://localhost:3001';
+else serverPath = process.env.REACT_APP_SERVER || '';
+// const serverPath = process.env.REACT_APP_SERVER||"";
 
 export default serverPath;
